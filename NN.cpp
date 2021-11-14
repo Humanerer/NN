@@ -1,5 +1,11 @@
+#include "NN.h"
+
 NN::NN(){
 
+    for (float weight : weights) {
+        weight = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+    }
+    
 }
 
 int NN::getInSize(){
@@ -14,7 +20,7 @@ Layer NN::input{
 
 }
 
-List<> NN::hidden{
+List<Layer> NN::hidden{
 
 }
 

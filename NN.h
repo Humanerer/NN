@@ -1,6 +1,7 @@
 #include <list>
 #include "Layer.h"
 #include "Neuron.h"
+#include <random>
 
 using std::list;
 
