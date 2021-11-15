@@ -1,12 +1,14 @@
-#include <list>
-
 class Neuron {
     public:
+        Neuron();
         Neuron(int inSize);
-        int getOut(List<int> ins);
+        ~Neuron();
+        void setInSize(int inSize);
+        float input(float* input);
 
     private:
+        int inSize;
         float bias = 0;
-        int[] weights;
+        float* weights;
         
 };

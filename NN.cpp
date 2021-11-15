@@ -1,29 +1,26 @@
 #include "NN.h"
 
-NN::NN(){
+NN::NN(int inSize, int outSize){
+    this->inSize = inSize;
+    this->outSize = outSize;
+    layers = {Layer(outSize, inSize)};
 
-    for (float weight : weights) {
-        weight = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-    }
+}
+
+float* NN::input(float* input){
+
+    float output[outSize];
+    return output;
+}
+
+void NN::addLayer(int layerSize, int hiddenNo){
     
 }
 
 int NN::getInSize(){
-
+    return inSize;
 }
 
 int NN::getOutSize(){
-
-}
-
-Layer NN::input{
-
-}
-
-List<Layer> NN::hidden{
-
-}
-
-Layer NN::output{
-
+    return outSize;
 }

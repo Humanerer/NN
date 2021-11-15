@@ -2,8 +2,14 @@
 
 class Layer {
     public:
-        Layer(int size);
+        Layer();
+        ~Layer();
+        Layer(int size, int prevSize);
+        void setInSize(int newSize);
+        int getSize();
+        float* input(float* input);
 
     private:
-        Neuron[] neurons;
+        int size;
+        Neuron* neurons;
 };
