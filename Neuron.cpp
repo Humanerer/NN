@@ -31,7 +31,7 @@ float Neuron::input(vector<float> input){
         sumW += input.at(i) * weights.at(i);
     }
 
-    float wb = sumW - bias;
+    float wb = sumW + bias;
 
     // RELU
     if (wb < 0) wb = 0;
