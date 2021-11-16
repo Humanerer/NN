@@ -4,21 +4,17 @@ Layer::Layer(){
 
 }
 
-Layer::~Layer(){
-    delete neurons;
-}
-
 Layer::Layer(int size, int prevSize){
     this->size = size;
-    neurons = new Neuron[size];
-    for (int i = 0; i < size; i++) {
-        neurons[i] = Neuron(prevSize);
+    for (int i = 0; i < size; i++){
+        neurons.push_back(Neuron(prevSize));
     }
+    printf("Layer with size %d and input of size %d made\n",size,prevSize);
 }
 
 void Layer::setInSize(int newSize){
     for (int i = 0; i < size; i++){
-        neurons[i].setInSize(newSize);
+        neurons.at(i).setInSize(newSize);
     }
 }
 
@@ -26,11 +22,11 @@ int Layer::getSize(){
     return size;
 }
 
-float* Layer::input(float* input){
-    float output[size];
+vector<float> Layer::input(vector<float> input){
+    vector<float> output;
 
     for (int i = 0; i < size; i++){
-        output[i] = neurons[i].input(input);
+        output.push_back(neurons.at(i).input(input));
     }
 
     return output;

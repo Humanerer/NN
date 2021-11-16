@@ -3,13 +3,27 @@
 NN::NN(int inSize, int outSize){
     this->inSize = inSize;
     this->outSize = outSize;
-    layers = {Layer(outSize, inSize)};
+    layers.push_back(Layer(outSize, inSize));
 
 }
 
-float* NN::input(float* input){
+vector<float> NN::input(vector<float> input){
+    if (input.size() != inSize){
+        throw invalid_argument("Incorrect size for input, expected "+inSize);
+    }
 
-    float output[outSize];
+    vector<float> output = input;
+
+    for (Layer layer : layers){
+        output = layer.input(output);
+    }
+
+    int i = 0;
+    for (float f : output){
+        printf("%d : %f\n",i,f);
+        i++;
+    }
+
     return output;
 }
 

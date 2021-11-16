@@ -1,15 +1,18 @@
 #include "Neuron.h"
+#include <vector>
+#include <stdio.h>
+
+using std::vector;
 
 class Layer {
     public:
         Layer();
-        ~Layer();
         Layer(int size, int prevSize);
         void setInSize(int newSize);
         int getSize();
-        float* input(float* input);
+        vector<float> input(vector<float> input);
 
     private:
         int size;
-        Neuron* neurons;
+        vector<Neuron> neurons;
 };

@@ -1,28 +1,30 @@
 #include "Neuron.h"
 
-Neuron::Neuron(){
-    inSize = 1;
-    weights = new float(0.0f);
-}
-
 Neuron::Neuron(int inSize){
     this->inSize = inSize;
-    weights = new float[inSize];
-}
 
-Neuron::~Neuron() {
-    delete[] weights;
+    for (int i = 0; i < inSize; i++){
+        weights.push_back(0.01f);
+    }
 }
 
 void Neuron::setInSize(int inSize){
+    for (int i = 0; i < inSize; i++){
+        weights.pop_back();
+    }
+
     this->inSize = inSize;
+
+    for (int i = 0; i < inSize; i++){
+        weights.push_back(0.01f);
+    }
 }
 
-float Neuron::input(float* input){
+float Neuron::input(vector<float> input){
     float sumW = 0.0f;
 
     for (int i = 0; i < inSize; i++){
-        sumW += input[i] * weights[i];
+        sumW += input.at(i) * weights.at(i);
     }
 
     float wb = sumW - bias;

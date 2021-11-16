@@ -1,14 +1,16 @@
+#include <vector>
+
+using std::vector;
+
 class Neuron {
     public:
-        Neuron();
         Neuron(int inSize);
-        ~Neuron();
         void setInSize(int inSize);
-        float input(float* input);
+        float input(vector<float> input);
 
     private:
         int inSize;
         float bias = 0;
-        float* weights;
+        vector<float> weights;
         
 };

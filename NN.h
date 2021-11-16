@@ -1,22 +1,22 @@
-#include <list>
 #include "Layer.h"
 #include <random>
 #include <stdexcept>
+#include <vector>
 
-using std::list;
 using std::invalid_argument;
+using std::vector;
 
 class NN {
     public:
         NN(int inSize, int outSize);
         void addLayer(int layerSize, int hiddenNo);
-        float* input(float* input);
+        vector<float> input(vector<float> input);
         int getInSize();
         int getOutSize();
 
     private:
-        int inSize;
-        static int outSize;
-        list<Layer> layers;
+        long unsigned int inSize;
+        long unsigned int outSize;
+        vector<Layer> layers;
         
 };
