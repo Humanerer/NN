@@ -13,6 +13,7 @@ class NN {
         vector<float> input(vector<float> input);
         int getInSize();
         int getOutSize();
+        void printLayers();
 
     private:
         long unsigned int inSize;

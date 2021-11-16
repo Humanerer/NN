@@ -10,9 +10,11 @@ class Layer {
         Layer(int size, int prevSize);
         void setInSize(int newSize);
         int getSize();
+        int getPrevSize();
         vector<float> input(vector<float> input);
 
     private:
         int size;
+        int prevSize;
         vector<Neuron> neurons;
 };
