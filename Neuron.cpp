@@ -12,7 +12,7 @@ Neuron::Neuron(int inSize){
 
 void Neuron::setInSize(int inSize){
     // Reset weights
-    for (int i = 0; i < inSize; i++){
+    while (!weights.empty()){
         weights.pop_back();
     }
 
