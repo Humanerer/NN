@@ -13,6 +13,7 @@ int main(){
 
     */
     vector<float> in = {1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f};
+    vector<float> desout = {1.0f,0.0f,0.0f,0.0f};
 
     // Used to test NN::addLayers()
     // nn.printLayers();
@@ -26,11 +27,7 @@ int main(){
     // Test output of NN
     vector<float> out = nn.input(in);
 
-    // Print output
-    for (float f : out){
-        printf("%f|",f);
-    }
-    printf("\n");
+    nn.backProp(in, desout);
 
     return 0;
 }

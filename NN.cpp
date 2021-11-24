@@ -1,6 +1,7 @@
 #include "NN.h"
 
 NN::NN(int inSize, int outSize){
+    srand(time(NULL));
     this->inSize = inSize;
     this->outSize = outSize;
     layers.push_back(Layer(outSize, inSize));
@@ -35,6 +36,40 @@ void NN::addLayer(int layerSize, int hiddenIndex){
     layers.at(hiddenIndex+1).setInSize(layerSize);
 }
 
+void NN::backProp(vector<float> in, vector<float> desiredOut){
+    if (in.size() != inSize){
+        throw invalid_argument("Incorrect size for input, expected "+inSize);
+    } else if (desiredOut.size() != outSize){
+        throw invalid_argument("Incorrect size for output, expected "+outSize);
+    }
+
+    vector<float> output = input(in);
+
+    vector<float> difference;
+
+    // A measure of how wrong the output is
+    float MSE = 0;
+
+    for (unsigned int i = 0; i < outSize; i++){
+        float diff = output.at(i) - desiredOut.at(i);
+        MSE += diff*diff/outSize;
+        difference.push_back(diff);
+    }
+
+    printVector(output);
+    printVector(desiredOut);
+    printVector(difference);
+    
+    for (unsigned int i = 0; i < outSize; i++){
+        
+    }
+}
+
+void NN::save(){
+    string meta = "";
+    // TODO: implement
+}
+
 int NN::getInSize(){
     return inSize;
 }
@@ -49,4 +84,18 @@ void NN::printLayers(){
         printf("%d : %d,%d\n",i,l.getPrevSize(),l.getSize());
         i++;
     }
+}
+
+void NN::printVector(vector<float> vec){
+    bool first = true;
+    for (float f : vec){
+        if (!first){
+            printf(" %f", f);
+
+        } else {
+            printf("[ %f", f);
+            first = false;
+        }
+    }
+    printf(" ]\n");
 }

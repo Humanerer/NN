@@ -1,9 +1,5 @@
 #include "Layer.h"
 
-Layer::Layer(){
-
-}
-
 Layer::Layer(int size, int prevSize){
     this->size = size;
     this->prevSize = prevSize;
