@@ -1,2 +1,5 @@
 .vscode
 NN
+NN.o
+Layer.o
+Neuron.o
