@@ -5,7 +5,8 @@ Neuron::Neuron(int inSize){
 
     // Add weights
     for (int i = 0; i < inSize; i++){
-        weights.push_back(0.01f);
+        float weight = (float) rand()/RAND_MAX;
+        weights.push_back(weight);
     }
 }
 
@@ -19,7 +20,8 @@ void Neuron::setInSize(int inSize){
 
     // Add weights
     for (int i = 0; i < inSize; i++){
-        weights.push_back(0.01f);
+        float weight = (float) rand()/RAND_MAX;
+        weights.push_back(weight);
     }
 }
 
@@ -33,8 +35,20 @@ float Neuron::input(vector<float> input){
 
     float wb = sumW + bias;
 
+    // Sigmoid
+    // float ex = exp(wb);
+    // float sigmoid = ex / (ex + 1.0f);
+
     // RELU
     if (wb < 0) wb = 0;
 
     return wb;
+}
+
+vector<float> Neuron::getWeights(){
+    return weights;
+}
+
+void Neuron::setWeights(vector<float> weights){
+    this->weights = weights;
 }
