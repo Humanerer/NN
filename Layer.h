@@ -12,6 +12,7 @@ class Layer {
         int getSize();
         int getPrevSize();
         vector<float> input(vector<float> input);
+        vector<Neuron>* getNeurons();
 
     private:
         int size;

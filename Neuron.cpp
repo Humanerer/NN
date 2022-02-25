@@ -45,10 +45,20 @@ float Neuron::input(vector<float> input){
     return wb;
 }
 
+void Neuron::setWeights(vector<float> weights){
+    if (weights.size() != this->weights.size()){
+        this->weights = weights;
+    }
+}
+
 vector<float> Neuron::getWeights(){
     return weights;
 }
 
-void Neuron::setWeights(vector<float> weights){
-    this->weights = weights;
+void Neuron::setBias(float bias){
+    this->bias = bias;
+}
+
+float Neuron::getBias(){
+    return bias;
 }

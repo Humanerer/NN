@@ -12,8 +12,10 @@ class Neuron {
         Neuron(int inSize);
         void setInSize(int inSize);
         float input(vector<float> input);
-        vector<float> getWeights();
         void setWeights(vector<float> weights);
+        vector<float> getWeights();
+        void setBias(float bias);
+        float getBias();
 
     private:
         int inSize;

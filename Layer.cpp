@@ -37,3 +37,7 @@ vector<float> Layer::input(vector<float> input){
 
     return output;
 }
+
+vector<Neuron>* Layer::getNeurons(){
+    return &neurons;
+}

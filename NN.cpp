@@ -56,13 +56,40 @@ void NN::backProp(vector<float> in, vector<float> desiredOut){
         difference.push_back(diff);
     }
 
-    printVector(output);
-    printVector(desiredOut);
-    printVector(difference);
+    // printVector(output);
+    // printVector(desiredOut);
+    // printVector(difference);
     
-    for (unsigned int i = 0; i < outSize; i++){
-        
+    
+    vector<Neuron> *outputNeurons = layers.at(layers.size()-1).getNeurons();
+    for (Neuron n : *outputNeurons){
+        printVector(n.getWeights());
     }
+
+
+    for (long unsigned int neuronIndex = 0; neuronIndex < outputNeurons->size(); neuronIndex++){
+        vector<float> newWeights;
+        for (float f : outputNeurons->at(neuronIndex).getWeights()){
+            printf("%f , %f, %f\n",f,difference.at(neuronIndex),difference.at(neuronIndex)/10-f);
+            float newWeight = difference.at(neuronIndex)/10-f; //TODO: change
+            newWeights.push_back(newWeight);
+        }
+        printVector(newWeights);
+        // layers.at(layers.size()-1).getNeurons()->at(neuronIndex).setWeights(newWeights);
+        outputNeurons->at(neuronIndex).setWeights(newWeights);
+        
+        // printVector();
+    }
+
+    printf("\n");
+
+    outputNeurons = layers.at(layers.size()-1).getNeurons();
+    for (Neuron n : *outputNeurons){
+        printVector(n.getWeights());
+    }
+
+
+    
 }
 
 void NN::save(){
