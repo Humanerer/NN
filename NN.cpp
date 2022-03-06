@@ -66,11 +66,13 @@ void NN::backProp(vector<float> in, vector<float> desiredOut){
         printVector(n.getWeights());
     }
 
+    printf("\n");
+
 
     for (long unsigned int neuronIndex = 0; neuronIndex < outputNeurons->size(); neuronIndex++){
         vector<float> newWeights;
         for (float f : outputNeurons->at(neuronIndex).getWeights()){
-            printf("%f , %f, %f\n",f,difference.at(neuronIndex),difference.at(neuronIndex)/10-f);
+            printf("origin: %f , diff: %f, res: %f\n",f,difference.at(neuronIndex),difference.at(neuronIndex)/10-f);
             float newWeight = difference.at(neuronIndex)/10-f; //TODO: change
             newWeights.push_back(newWeight);
         }
@@ -78,12 +80,12 @@ void NN::backProp(vector<float> in, vector<float> desiredOut){
         // layers.at(layers.size()-1).getNeurons()->at(neuronIndex).setWeights(newWeights);
         outputNeurons->at(neuronIndex).setWeights(newWeights);
         
-        // printVector();
+        printVector(outputNeurons->at(neuronIndex).getWeights());
     }
 
     printf("\n");
 
-    outputNeurons = layers.at(layers.size()-1).getNeurons();
+    // outputNeurons = layers.at(layers.size()-1).getNeurons();
     for (Neuron n : *outputNeurons){
         printVector(n.getWeights());
     }

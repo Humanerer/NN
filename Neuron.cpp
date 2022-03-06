@@ -46,7 +46,7 @@ float Neuron::input(vector<float> input){
 }
 
 void Neuron::setWeights(vector<float> weights){
-    if (weights.size() != this->weights.size()){
+    if (weights.size() == this->weights.size()){
         this->weights = weights;
     }
 }
