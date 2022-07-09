@@ -21,7 +21,7 @@ int main(){
     // nn.printLayers();
     nn.addLayer(3,1);
     // nn.printLayers();
-    nn.addLayer(6,0);
+    // nn.addLayer(6,0);
     // nn.printLayers();
 
     // Test output of NN

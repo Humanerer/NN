@@ -37,58 +37,75 @@ void NN::addLayer(int layerSize, int hiddenIndex){
 }
 
 void NN::backProp(vector<float> in, vector<float> desiredOut){
+    // Validation for input and output size
     if (in.size() != inSize){
         throw invalid_argument("Incorrect size for input, expected "+inSize);
     } else if (desiredOut.size() != outSize){
         throw invalid_argument("Incorrect size for output, expected "+outSize);
     }
 
-    vector<float> output = input(in);
+    // Error functions from https://brilliant.org/wiki/backpropagation/#:~:text=%E2%88%82ajk%E2%80%8B,1%20%CE%B4%20l%20k%20%2B%201%20.
+    vector<vector<float>> outputs;
+    vector<vector<float>> errors;
 
-    vector<float> difference;
+    vector<float> output = in;
 
-    // A measure of how wrong the output is
-    float MSE = 0;
+    for (Layer layer : layers){
+        output = layer.input(output);
+        outputs.push_back(output);
+    }
 
+    vector<float> outErrors;
+
+    // Calculate error for outputs
     for (unsigned int i = 0; i < outSize; i++){
         float diff = output.at(i) - desiredOut.at(i);
-        MSE += diff*diff/outSize;
-        difference.push_back(diff);
+        float error = diff*diff/2;
+        outErrors.push_back(diff);
     }
+    errors.push_back(outErrors);
+
+    for (vector<float> vec : outputs){
+        printVector(vec);
+    }
+
+    // printVector(outErrors);
+    
 
     // printVector(output);
     // printVector(desiredOut);
     // printVector(difference);
     
     
-    vector<Neuron> *outputNeurons = layers.at(layers.size()-1).getNeurons();
-    for (Neuron n : *outputNeurons){
-        printVector(n.getWeights());
-    }
-
-    printf("\n");
+    // vector<Neuron> *outputNeurons = layers.at(layers.size()-1).getNeurons();
+    // for (Neuron n : *outputNeurons){
+    //     printVector(n.getWeights());
+    // }
 
 
-    for (long unsigned int neuronIndex = 0; neuronIndex < outputNeurons->size(); neuronIndex++){
-        vector<float> newWeights;
-        for (float f : outputNeurons->at(neuronIndex).getWeights()){
-            printf("origin: %f , diff: %f, res: %f\n",f,difference.at(neuronIndex),difference.at(neuronIndex)/10-f);
-            float newWeight = difference.at(neuronIndex)/10-f; //TODO: change
-            newWeights.push_back(newWeight);
-        }
-        printVector(newWeights);
-        // layers.at(layers.size()-1).getNeurons()->at(neuronIndex).setWeights(newWeights);
-        outputNeurons->at(neuronIndex).setWeights(newWeights);
+    // printf("\n");
+
+
+    // for (long unsigned int neuronIndex = 0; neuronIndex < outputNeurons->size(); neuronIndex++){
+    //     vector<float> newWeights;
+    //     for (float f : outputNeurons->at(neuronIndex).getWeights()){
+    //         printf("origin: %f , diff: %f, res: %f\n",f,difference.at(neuronIndex),difference.at(neuronIndex)/10-f);
+    //         float newWeight = difference.at(neuronIndex)/10-f; //TODO: change
+    //         newWeights.push_back(newWeight);
+    //     }
+    //     printVector(newWeights);
+    //     // layers.at(layers.size()-1).getNeurons()->at(neuronIndex).setWeights(newWeights);
+    //     outputNeurons->at(neuronIndex).setWeights(newWeights);
         
-        printVector(outputNeurons->at(neuronIndex).getWeights());
-    }
+    //     printVector(outputNeurons->at(neuronIndex).getWeights());
+    // }
 
-    printf("\n");
+    // printf("\n");
 
-    // outputNeurons = layers.at(layers.size()-1).getNeurons();
-    for (Neuron n : *outputNeurons){
-        printVector(n.getWeights());
-    }
+    // // outputNeurons = layers.at(layers.size()-1).getNeurons();
+    // for (Neuron n : *outputNeurons){
+    //     printVector(n.getWeights());
+    // }
 
 
     
