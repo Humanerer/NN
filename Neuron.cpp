@@ -5,9 +5,13 @@ Neuron::Neuron(int inSize){
 
     // Add weights
     for (int i = 0; i < inSize; i++){
-        float weight = (float) rand()/RAND_MAX;
+        // Random float between -1.0 and 1.0
+        float weight = (float) (rand() - RAND_MAX/2) * 2 / RAND_MAX;
         weights.push_back(weight);
     }
+
+    // Random float between -1.0 and 1.0
+    bias = (float) (rand() - RAND_MAX/2) * 2 / RAND_MAX;
 }
 
 void Neuron::setInSize(int inSize){
@@ -41,6 +45,7 @@ float Neuron::input(vector<float> input){
 
     // RELU
     if (wb < 0) wb = 0;
+    else wb = 1;
 
     return wb;
 }

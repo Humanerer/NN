@@ -19,7 +19,7 @@ class Neuron {
 
     private:
         int inSize;
-        float bias = 0;
+        float bias;
         vector<float> weights;
         
 };
