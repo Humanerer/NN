@@ -24,8 +24,13 @@ int main(){
     // nn.addLayer(6,0);
     // nn.printLayers();
 
+    nn.printLayers();
+
     // Test output of NN
-    vector<float> out = nn.input(in);
+    // vector<float> out = nn.input(in);
+    // for (float f : out){
+    //     printf("%f\n",f);
+    // }
 
     nn.backProp(in, desout);
 

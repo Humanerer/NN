@@ -45,7 +45,6 @@ float Neuron::input(vector<float> input){
 
     // RELU
     if (wb < 0) wb = 0;
-    else wb = 1;
 
     return wb;
 }

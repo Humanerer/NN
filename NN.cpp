@@ -21,6 +21,15 @@ vector<float> NN::input(vector<float> input){
         output = layer.input(output);
     }
 
+    // Limit final output
+    int floatIndex = 0;
+    for (float value : output){
+        if (value > 1.0f){
+            output.at(floatIndex) = 1.0f;
+        }
+        floatIndex++;
+    }
+
     // Return the output of the output layer
     return output;
 }
@@ -50,22 +59,65 @@ void NN::backProp(vector<float> in, vector<float> desiredOut){
 
     vector<float> output = in;
 
-    for (Layer layer : layers){
+    for (Layer &layer : layers){
         output = layer.input(output);
         outputs.push_back(output);
+    }
+
+    vector<float> limitedOut = outputs.at(outputs.size()-1);
+
+    // Limit final output
+    int floatIndex = 0;
+    for (float value : limitedOut){
+        if (value > 1.0f){
+            limitedOut.at(floatIndex) = 1.0f;
+        }
+        floatIndex++;
     }
 
     vector<float> outErrors;
 
     // Calculate error for outputs
     for (unsigned int i = 0; i < outSize; i++){
-        float diff = output.at(i) - desiredOut.at(i);
+        float diff = limitedOut.at(i) - desiredOut.at(i);
         float error = diff*diff/2;
-        outErrors.push_back(diff);
+        outErrors.push_back(error);
     }
     errors.push_back(outErrors);
 
+    // For each layer from the last
+    for (int layerNo = layers.size()-2; layerNo >= 0; layerNo--){
+        Layer layer = layers.at(layerNo);
+        vector<float> layerErrors;
+
+        int neuronNo = 0;
+        for (Neuron neuron : *layer.getNeurons()){
+            float error;
+
+            float wErrorSum = 0;
+            Layer nextLayer = layers.at(layerNo+1);
+            int nextNeuronNo = 0;
+            // For each neuron in the next layer
+            for (Neuron neuron : *nextLayer.getNeurons()){
+                wErrorSum += neuron.getWeights().at(neuronNo) * errors.at(0).at(nextNeuronNo);
+                nextNeuronNo++;
+            }
+            float nOut = outputs.at(layerNo).at(neuronNo);
+            error = wErrorSum * nOut * (1 - nOut);
+            // printf("%f %f\n",error,nOut);
+            // layerErrors.push_back(error);
+            layerErrors.push_back(error);
+            neuronNo++;
+        }
+
+        errors.insert(errors.begin(),layerErrors);
+    }
+
     for (vector<float> vec : outputs){
+        printVector(vec);
+    }
+    printf("\n");
+    for (vector<float> vec : errors){
         printVector(vec);
     }
 
